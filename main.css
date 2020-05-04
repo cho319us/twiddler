@@ -49,36 +49,67 @@ table {
 
 /*------------------------------------------------*/
 
-.Title {
-  font-size: 50px;
+.title {
+  font-size: 100px;
   padding: 30px;
   text-align: center;
   color: white;
   background-color: #00ACEE;
 }
 
-.Button {
-  padding: 20px;
+.mainbody {
   text-align: center;
+  padding: 30px;
+  padding-top: 10px;
+  background-color: rgb(235, 249, 255);
 }
 
-#button1, #button2 {
+.Button {
+  text-align: center;
+  background-color: rgb(235, 249, 255)
+}
+
+#btn1, #btn2 {
   background-color: rgb(0, 143, 238);
   color: white;
   padding: 20px;
   text-align: center;
-  font-size: 16px;
-  margin: 4px 2px;
+  font-size: 20px;
+  margin-top: 20px;
   border-radius: 12px;
+  width: 300px;
 }
 
-.tweetbody {
-  text-align: center;
-  padding: 30px;
-  background-color: rgb(235, 249, 255);
-}
-
-.time {
+.tweetBox {
+  border: 5px solid #5DA6D5;
+  border-radius: 5px;
+  background-color: white;
+  padding: 5px;
   margin: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.tweetMessage {
+  margin: 5px;
+  font-size: 20px;
+}
+
+.tweetUser {
+  margin: 5px;
+  color: rgb(127, 128, 184);
+}
+
+.tweetTime {
+  margin: 5px;
   color: gray;
 }
+
+footer {
+  padding: 30px;
+  text-align: center;
+  color: white;
+  background-color: #00ACEE;
+}
+
+

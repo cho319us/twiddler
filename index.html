@@ -9,47 +9,119 @@
   </head>
   <body>
 
-    <div class='Title'>
-      <h1>Twiddler</h1>
+    <!-- Header -->
+    <header>
+      <h1 class="title">Twiddler</h1>
+    </header>
+
+    <!-- Button -->
+    <div class="Button">
+      <button id='btn1'>More Tweets</button>
+      <button id='btn2'>Refresh</button>
     </div>
 
-    <div class='Button'>
-      <button id='button1'>More Tweets</button>
-      <button id='button2'>Home</button>
-    </div>
+    <!-- Main Body -->
+    <section class="mainbody"></section>
 
-    <div class='tweetbody'>
-
-    </div>
+    <!-- Footer -->
+    <footer>
+      <small>&copy; Twiddler, Inc.</small>
+    </footer>
 
     <script>
+      /* data_generator.js
+      Creates two global variables, users and streams.
+      - users is an array of strings -- all the usernames that you're following.
+      - streams is an object with two properties, users and home.
+        + streams.home is an array of all tweets from all the users you're following.
+        + streams.users is an object with properties for each user.
+          # streams.users.shawndrost has all of shawndrost's tweets.
+      Kicks off a periodic process that puts more data in streams.
+      The generated tweets will be displayed in reverse chronological order.
+      */
 
+      // code in this function will run as soon as the browser has loaded the page.
       $(document).ready(function(){
-        newTweet();
-        function newTweet(){
-          var $body = $('.tweetbody');
-          $body.html('');
-          var index = streams.home.length - 1;
-          while(index >= 0){
-            var tweet = streams.home[index];
-            // User
-            // var $userName = $('<div class=userNameGroup></div>');
-            // $userName.text(tweet.user);
+        // select <section> element with the class mainbody and assign to $body
+        var $body = $('.mainbody');
 
-            // Tweet
-            var $tweet = $('<div class=tweet></div>');
-            $tweet.text('@' + tweet.user + ': ' + tweet.message);
-            $tweet.appendTo($body);
-            // Timestamp
-            var $timestamps = $('<div class=time></div>');
+        // call the newTweet() function to generate random Tweets as soon as the browser has loaded the page
+        newTweet();
+
+        // create a function to generate random Tweets
+        function newTweet(){
+          // empty the HTML content in $body
+          $body.html('');
+          // set index equal to the last index number of the array of all tweets from all the users you're following.
+          var index = streams.home.length - 1;
+          // while the index number is still >= 0
+          while(index >= 0){
+            // set tweet equal to the tweet at the current index of the array
+            var tweet = streams.home[index];
+
+            // Box
+            // create the <div> element with class tweetBox and assign to $box
+            var $box = $('<div class=tweetBox></div>');
+
+            // User
+            // create the <p> element with class tweetUser and assign to $username
+            var $username = $('<p class=tweetUser></p>');
+            // set the user to the $username
+            $username.text('@' + tweet.user);
+            // move the content in $username to the $box
+            $username.appendTo($box);
+
+            // Tweet Message
+            // create the <div> element with class tweetMessage and assign to $tweet
+            var $tweet = $('<div class=tweetMessage><div>');
+            // set the tweet message to the $tweet
+            $tweet.text(tweet.message);
+            // move the content in $tweet to the $box
+            $tweet.appendTo($box);
+
+            // Time
+            // create the <p> element with class tweetTime and assign to $timestamp
+            var $timestamps = $('<p class=tweetTime></p>');
+            // set the creat time to the $timestamps
             $timestamps.text(tweet.created_at);
-            $timestamps.appendTo($body);
+            // move the content in $timestamps to the $box
+            $timestamps.appendTo($box);
+
+            // move content in $box to the $body
+            $box.appendTo($body);
+
+            // index number -1
             index -= 1;
           }
         }
-        // set button1 create new tweet
-        $( "#button1" ).click(function() {
+
+        // set btn1 clickable
+        $( "#btn1" ).click(function() {
+          // generate new random Tweets after clicked
           newTweet();
+        });
+
+        // set btn1 clickable
+        $( "#btn2" ).click(function() {
+          // Reload the current document:
+          window.location.reload();
+        });
+
+        // set tweetUser clickable
+        $(document).on('click', '.tweetUser', function() {
+          // hide button with id btn1 after clicked tweetUser
+          $("#btn1").hide();
+          // find the collection of elements with class tweetUser and assign to tweetUserCollect
+          var tweetUserCollect = $('.tweetUser');
+          // set the current clicked .tweetUser object to clickedUser
+          var clickedUser = $(this);
+          // set a filter to iterate the elements with class tweetUser
+          // return all except the tweetUser who has the name of the clicked one, then assign to notClickedUser
+          var notClickedUser = tweetUserCollect.filter(function(index) {
+            return tweetUserCollect[index].innerText !== clickedUser.text();
+          });
+          // hide all the parent element of notClickedUser
+          notClickedUser.parent().hide();
         });
 
       });
@@ -57,3 +129,4 @@
     </script>
   </body>
 </html>
+
